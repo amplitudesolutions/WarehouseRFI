@@ -1,4 +1,5 @@
 <div class="container">
+	<div class="col-sm-3">&nbsp;</div>
 	<div class="col-sm-6">
 		<form>
 			<div class="form-group">
@@ -15,10 +16,19 @@
 				<select class="form-control">
 					<option>Spool</option>
 					<option>Support</option>
-					<option>Connection</option>
+					<option>Loose Piping Items</option>
 				</select>
 			</div>
-			<button type="submit" class="btn btn-primary">Search</button>
+			<button type="button" class="btn btn-primary pull-right" id="search">Search</button>
 		</form>
 	</div>
+	<div class="col-sm-3">&nbsp;</div>
 </div>
+
+<script>
+
+$('#search').click(function() {
+	window.location.href= window.location + "requisitions";
+});
+
+</script>
