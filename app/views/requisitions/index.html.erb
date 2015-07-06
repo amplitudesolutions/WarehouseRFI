@@ -7,6 +7,18 @@
 			<h4>Component Type: <b>Loose Piping Items</b></h4>
 		</div>
 		<form>
+			<div class="form-group col-sm-4">
+				<label for="project" class="control-label">Project</label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="project" class="control-label">Date</label>
+				<input type="text" class="form-control">
+			</div>
+			<div class="form-group col-sm-4">
+				<label for="project" class="control-label">WRFI No:</label>
+				<p class="form-control-static"><b>10842</b></p>
+			</div>
 			<div class="form-group col-sm-12">
 				<label for="intendeduse" class="control-label">Intended Use</label>
 				<input type="text" class="form-control">
@@ -81,8 +93,17 @@
 				</div>
 			</div>
 			<div class="col-sm-12">
-				<button type="submit" class="btn btn-primary pull-right">Generate</button>
+				<button type="button" id="generate" class="btn btn-primary pull-right">Generate</button>
 			</div>
 		</form>
 	</div>
 </div>
+
+
+<script>
+
+$('#generate').click(function() {
+	window.location.href= window.location + "/show";
+});
+
+</script>
