@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="col-sm-6 form-group">
+		<%= form_tag settings_path, enctype: 'multipart/form-data' do %>
+			<label for="excelUpload">File Upload</label>
+			<%= file_field_tag :file, class: 'form-control' %>
+			<span class="help-block">Current file: XXXXXXX.xlsx</span>
+			<%= submit_tag 'Upload File', class: 'btn btn-primary pull-right' %>
+		<% end %>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				File History
+			</div>
+			<table class="table">
+		    	<thead>
+		    		<tr>
+		    			<th>Filename</th>
+		    			<th class="text-center">Upload Date</th>
+		    			<th class="text-center"></th>
+		    		</tr>
+		    	</thead>
+		    	<tbody>
+		    		<tr>
+		    			<td>excel.xlsx</td>
+		    			<td class="text-center">July 07, 2015</td>
+		    			<td class="text-center">Download</td>
+		    		</tr>
+		    	</tbody>
+			</table>
+		</div>
+	</div>
+</div>

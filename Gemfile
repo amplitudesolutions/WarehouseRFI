@@ -9,6 +9,12 @@ gem 'rails', '4.2.1'
 gem 'pg'
 gem 'rails_12factor', group: :production
 
+# Gem for Excel Parsing
+gem 'roo', '~> 2.0.0'
+
+# Gem for AWS S3 Storage
+gem 'aws-sdk', '~> 2'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
