@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
   get 'requisitions/print'
+  get 'dashboard/search'
 
   resources :requisitions
   resources :settings
