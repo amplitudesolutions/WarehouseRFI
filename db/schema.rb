@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709061459) do
+ActiveRecord::Schema.define(version: 20150711160549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,30 @@ ActiveRecord::Schema.define(version: 20150709061459) do
     t.datetime "updated_at",                 null: false
     t.string   "laying_type"
     t.string   "isomet_code"
+    t.integer  "requisition_id"
+    t.integer  "type_id"
+  end
+
+  add_index "materials", ["requisition_id"], name: "index_materials_on_requisition_id", using: :btree
+  add_index "materials", ["type_id"], name: "index_materials_on_type_id", using: :btree
+
+  create_table "requisitions", force: :cascade do |t|
+    t.string   "project"
+    t.string   "date"
+    t.string   "intended_use"
+    t.string   "requested_by"
+    t.string   "delivery_location"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "isometric_number"
+    t.string   "requisition_id"
+    t.string   "work_package_number"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
