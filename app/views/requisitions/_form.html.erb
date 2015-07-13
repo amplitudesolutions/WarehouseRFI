@@ -41,9 +41,10 @@
 		</div>
 	</div>
 
+	<!-- NEED TO HIDE WHEN NO ITEMS EXIST -->
 	<div class="panel panel-danger">
 		<div class="panel-heading">
-			<h4><b>Unknown Items</b></h4>
+			<h4><b>Unknown Items</b> <small>Create rules for these items to be identified correctly</small></h4>
 		</div>
 		<div class="panel-body">
 			<div class="col-sm-12">
@@ -57,6 +58,7 @@
 								<th class="text-center">Drawing Number</th>
 								<th class="text-center">Work Package Number</th>
 								<th class="text-center">Tag Number</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -69,6 +71,11 @@
 									<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
 									<td class="text-center"></td>
 									<td class="text-center"></td>
+									<td class="text-center">
+										<button class="btn btn-default btn-xs">
+											<span class="glyphicon glyphicon-export" title="Create Rule"></span>
+										</button>
+									</td>
 								</tr>
 								<% end %>
 							<% end %>
