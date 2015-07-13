@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :requisitions
   resources :settings
+  resources :rules
  
 
   # The priority is based upon order of creation: first created -> highest priority.

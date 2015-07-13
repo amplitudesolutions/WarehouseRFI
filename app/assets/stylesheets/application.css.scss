@@ -15,5 +15,11 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "datepicker";
 
 body { padding-top: 70px; padding-bottom: 20px }
+
+.input-group.date .add-on {
+  background-color: #fff;
+  cursor: pointer;
+}

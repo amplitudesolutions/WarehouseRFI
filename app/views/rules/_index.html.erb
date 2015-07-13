@@ -1,0 +1,11 @@
+<% @rules.each do |r| %>
+<tr>
+	<td><%= r.search_text %></td>
+	<td><%= r.display_text %></td>
+	<td><%= r.type.present? ? r.type.name : '' %></td>
+	<td>
+		<%= link_to 'Edit', edit_rule_path(r), remote: true, class: "btn btn-primary btn-xs" %>
+		<%#= link_to 'Delete', admin_job_delete_path(j), remote: true, class: "btn btn-danger btn-xs" %>
+	</td>
+</tr>
+<% end %>

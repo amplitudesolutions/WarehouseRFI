@@ -1,0 +1,131 @@
+<%= form_for @requisition do |f| %>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="col-sm-12">
+				<div class="col-sm-12">
+					<h4>ISO: <b><%= @isometric_number %></b></h4>
+					<%= f.hidden_field :isometric_number, value: @isometric_number %>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="requisition_project" class="control-label">Project</label>
+					<%= f.text_field :project, class: 'form-control' %>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="requisition_date" class="control-label">Date</label>
+					<div class="input-group date" id="requisition_date" data-date="<%=DateTime.now%>">
+						<%= f.text_field :date, class: 'form-control req_date', readonly: true, value: DateTime.now.strftime("%d/%m/%Y") %>
+						<span class="input-group-addon add-on">
+			              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+			            </span>
+					</div>
+				</div>
+				<div class="form-group col-sm-4">
+					<label for="requisition_work_package_number" class="control-label">Work Package Number</label>
+					<%= f.text_field :work_package_number, class: 'form-control' %>
+				</div>
+				<div class="form-group col-sm-12">
+					<label for="requisition_intended_use" class="control-label">Intended Use</label>
+					<%= f.text_field :intended_use, class: 'form-control' %>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label for="requisition_requested_by" class="control-label">Requested By</label>
+					<%= f.text_field :requested_by, class: 'form-control' %>
+				</div>
+
+				<div class="form-group col-sm-6">
+					<label for="requisition_delivery_location" class="control-label">Delivery Location</label>
+					<%= f.text_field :delivery_location, class: 'form-control' %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% @types.each do |t| %>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="col-sm-6">
+						<h4>Component Type: <b><%= t.name %></b></h4>
+					</div>
+					<!-- <div class="col-sm-6">
+						<h4 class="pull-right">WRFI No: <b>Auto Generated</b></h4>
+					</div> -->
+					<div class="col-sm-12">
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th class="text-center">Quantity</th>
+										<th>Material Description</th>
+										<th class="text-center">MMS Part Number</th>
+										<th class="text-center">Drawing Number</th>
+										<th class="text-center">Work Package Number</th>
+										<th class="text-center">Tag Number</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% @materials.each do |m| %>
+										<tr>
+											<td class="text-center"><%= m.quantity %></td>
+											<td><%= m.requisition_description %></td>
+											<td class="text-center"><%= m.component_number %></td>
+											<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
+											<td class="text-center"><%= m.material_type %></td>
+											<td class="text-center"></td>
+										</tr>
+									<% end %>
+									<!-- <tr>
+										<td>
+											<label class="sr-only">Quantity</label>
+											<input type="text" class="form-control">
+										</td>
+										<td>
+											<label class="sr-only">Material Description</label>
+											<input type="text" class="form-control">
+										</td>
+										<td>
+											<label class="sr-only">MMS Part Number</label>
+											<input type="text" class="form-control">
+										</td>
+										<td>
+											<label class="sr-only">Drawing Number</label>
+											<input type="text" class="form-control">
+										</td>
+										<td>
+											<label class="sr-only">Work Package Number</label>
+											<input type="text" class="form-control">
+										</td>
+										<td>
+											<label class="sr-only">Tag Number</label>
+											<input type="text" class="form-control">
+										</td>
+									</tr> -->
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+	<div class="col-sm-12">
+		<div class="row">
+			<%= f.submit 'Generate', class: 'btn btn-primary pull-right' %>
+		</div>
+	</div>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		var nowTemp = new Date();
+	    var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+	    
+	    $('#requisition_date').datepicker({
+	      format: 'mm/dd/yyyy',
+	      onRender: function(date) {
+	      return date.valueOf() < now.valueOf() ? 'disabled' : '';
+	    }}).on('changeDate', function(ev){
+	      $('#requisition_date').datepicker('hide');
+	    });
+	});
+</script>

@@ -11,23 +11,23 @@
 							<h3>WAREHOUSE REQUEST FOR ISSUE</h3>
 						</div>
 						<div class="col-sm-3">
-							<p>Project: <b>CF3</b></p>
-							<p>WRFI No: <b>10842</b></p>
-							<p>Date: <b>6/3/2015</b></p>
-							<p>Work Package No: <b>12312312-123123</b></p>
+							<p>Project: <b><%= @requisition.project %></b></p>
+							<p>WRFI No: <b><%= @requisition.requisition_id %></b></p>
+							<p>Date: <b><%= @requisition.date %></b></p>
+							<p>Work Package No: <b><%= @requisition.work_package_number %></b></p>
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-12" style="padding-top: 30px;">
-					<p>Intended Use: <b>Install</b></p>
+					<p>Intended Use: <b><%= @requisition.intended_use %></b></p>
 				</div>
 
 				<div class="col-sm-6">
-					<p>Requested By: <b>Eric Carter</b></p>
+					<p>Requested By: <b><%= @requisition.requested_by %></b></p>
 				</div>
 
 				<div class="col-sm-6">
-					<p>Delivery Location: <b>Area 20</b></p>
+					<p>Delivery Location: <b><%= @requisition.delivery_location %></b></p>
 				</div>
 
 				<div class="col-sm-12">

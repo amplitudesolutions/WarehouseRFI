@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @rule.errors.any? %>
+  <% @rule.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("#ruleslist").html("<%= escape_javascript(render 'index') %>")
+  $("#rule-modal").modal("hide")
+<% end %>

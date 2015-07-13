@@ -11,10 +11,16 @@ class RequisitionsController < ApplicationController
 		# Requisition Number Generator
 		# ISO Number + Sheet No + Seq. Number
 		# ie) 00001A + A01 (Change A to S) + XX
-
-		@requisition = Requisition.new
+	
 		@isometric_number = params[:isometric_number]
 		@types = Type.all
+
+		@requisition = Requisition.where(isometric_number: @isometric_number).take
+
+		# Check if @requistion is empty or not
+		if @requisition.blank?
+			@requisition = Requisition.new			
+		end
 
 		# Maybe split things up like this to accomodate the different types?
 

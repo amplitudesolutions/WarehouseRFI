@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150711160549) do
+ActiveRecord::Schema.define(version: 20150713060140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,16 @@ ActiveRecord::Schema.define(version: 20150711160549) do
     t.string   "requisition_id"
     t.string   "work_package_number"
   end
+
+  create_table "rules", force: :cascade do |t|
+    t.string   "search_text"
+    t.string   "display_text"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "type_id"
+  end
+
+  add_index "rules", ["type_id"], name: "index_rules_on_type_id", using: :btree
 
   create_table "types", force: :cascade do |t|
     t.string   "name"
