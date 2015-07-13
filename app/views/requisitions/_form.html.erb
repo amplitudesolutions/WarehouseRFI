@@ -40,6 +40,45 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="panel panel-danger">
+		<div class="panel-heading">
+			<h4><b>Unknown Items</b></h4>
+		</div>
+		<div class="panel-body">
+			<div class="col-sm-12">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th class="text-center">Quantity</th>
+								<th>Material Description</th>
+								<th class="text-center">MMS Part Number</th>
+								<th class="text-center">Drawing Number</th>
+								<th class="text-center">Work Package Number</th>
+								<th class="text-center">Tag Number</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @materials.each do |m| %>
+								<% if m.material_type === "" %>
+								<tr>
+									<td class="text-center"><%= m.quantity %></td>
+									<td><%= m.requisition_description %></td>
+									<td class="text-center"><%= m.component_number %></td>
+									<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
+									<td class="text-center"></td>
+									<td class="text-center"></td>
+								</tr>
+								<% end %>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<% @types.each do |t| %>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -65,41 +104,17 @@
 								</thead>
 								<tbody>
 									<% @materials.each do |m| %>
+										<% if m.material_type === t.id %>
 										<tr>
 											<td class="text-center"><%= m.quantity %></td>
 											<td><%= m.requisition_description %></td>
 											<td class="text-center"><%= m.component_number %></td>
 											<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
-											<td class="text-center"><%= m.material_type %></td>
+											<td class="text-center"></td>
 											<td class="text-center"></td>
 										</tr>
+										<% end %>
 									<% end %>
-									<!-- <tr>
-										<td>
-											<label class="sr-only">Quantity</label>
-											<input type="text" class="form-control">
-										</td>
-										<td>
-											<label class="sr-only">Material Description</label>
-											<input type="text" class="form-control">
-										</td>
-										<td>
-											<label class="sr-only">MMS Part Number</label>
-											<input type="text" class="form-control">
-										</td>
-										<td>
-											<label class="sr-only">Drawing Number</label>
-											<input type="text" class="form-control">
-										</td>
-										<td>
-											<label class="sr-only">Work Package Number</label>
-											<input type="text" class="form-control">
-										</td>
-										<td>
-											<label class="sr-only">Tag Number</label>
-											<input type="text" class="form-control">
-										</td>
-									</tr> -->
 								</tbody>
 							</table>
 						</div>

@@ -26,7 +26,6 @@ class Material < ActiveRecord::Base
 		end
 
 		display
-
 	end
 
 	def material_type
