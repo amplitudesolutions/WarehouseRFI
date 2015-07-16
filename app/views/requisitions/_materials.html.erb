@@ -1,0 +1,161 @@
+<!-- NEED TO HIDE WHEN NO ITEMS EXIST -->
+<div class="panel panel-danger">
+	<div class="panel-heading">
+		<h4><b>Unknown Items</b> <small>Create rules for these items to be identified correctly</small></h4>
+	</div>
+	<div class="panel-body">
+		<div class="col-sm-12">
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr>
+							<th class="text-center">Quantity</th>
+							<th>Material Description</th>
+							<th class="text-center">MMS Part Number</th>
+							<th class="text-center">Drawing Number</th>
+							<th class="text-center">Work Package Number</th>
+							<th class="text-center">Tag Number</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @materials.each do |m| %>
+							<% if m.material_type === "" %>
+							<tr>
+								<td class="text-center"><%= m.quantity %></td>
+								<td><%= m.requisition_description %></td>
+								<td class="text-center"><%= m.component_number %></td>
+								<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
+								<td class="text-center"></td>
+								<td class="text-center"></td>
+								<td class="text-center">
+									<%= link_to new_rule_path(desc: m.requisition_description), remote: true, class: "btn btn-default btn-xs" do %>
+										<span class="glyphicon glyphicon-export" title="Create Rule"></span>
+									<% end %>
+								</td>
+							</tr>
+							<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% @types.each do |t| %>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="col-sm-12">
+				<div class="col-sm-6">
+					<h4>Component Type: <b><%= t.name %></b></h4>
+				</div>
+				<!-- <div class="col-sm-6">
+					<h4 class="pull-right">WRFI No: <b>Auto Generated</b></h4>
+				</div> -->
+				<div class="col-sm-12">
+					<div class="table-responsive">
+						<table class="table" id="<%=t.name%>List">
+							<thead>
+								<tr>
+									<th class="text-center">Quantity</th>
+									<th>Material Description</th>
+									<th class="text-center">MMS Part Number</th>
+									<th class="text-center">Drawing Number</th>
+									<th class="text-center">Work Package Number</th>
+									<th class="text-center">Tag Number</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @materials.each do |m| %>
+									<% if m.material_type === t.id %>
+									<tr>
+										<td class="text-center"><%= m.quantity %></td>
+										<td><%= m.requisition_description %></td>
+										<td class="text-center"><%= m.component_number %></td>
+										<td class="text-center"><%= m.isometric_number %>-<%= m.spool%></td>
+										<td class="text-center"></td>
+										<td class="text-center"></td>
+									</tr>
+									<% end %>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<% if t.name === "Spool" %>
+						<button class="btn btn-success pull-right" type="button" data-toggle="modal" data-target=".add-spool">Add Spool</button>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
+
+<div id="spool-modal" class="modal fade add-spool" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Spool</h4>
+			</div>
+			<div class="modal-body">				
+				<div class="form-group">
+					<label for="">Description</label>
+					<input type="text" class="form-control" id="spoolDescription">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" id="btnAddSpool" type="button">Add</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$(document).ready(function() {
+
+		function getUniqueId() {
+			var d1 = new Date();
+	        return (d1.getTime()-d1.getMilliseconds())/1000;
+	    };
+
+	    var counter = getUniqueId();
+
+		function addNewSpool() {
+			var spoolCount = counter;
+			$("#SpoolList tr:last").after(
+				'<tr id="spool' + counter + '">' + 
+					'<td class="text-center">1</td>' +
+					'<td>' + $("#spoolDescription").val() + '</td>' +
+					'<td class="text-center"></td>' +
+					'<td class="text-center"><%#= m.isometric_number %>-<%#= m.spool%></td>' +
+					'<td class="text-center"></td>' +
+					'<td class="text-center"></td>' +
+				'</tr>'
+			);
+
+
+			// Clear Textbox
+			$("#spoolDescription").val('');
+			// Close Dialog
+			$("#spool-modal").modal("hide")
+
+		};
+
+		function removeSpool() {
+
+		};
+
+		function editSpool() {
+
+		};
+
+		$("#btnAddSpool").click(function () {
+	        addNewSpool();
+	    });
+
+	});
+
+</script>

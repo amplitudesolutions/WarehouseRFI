@@ -5,6 +5,9 @@ class RulesController < ApplicationController
 
 	def new
 		@rule = Rule.new
+		
+		# If description passed, populate it. If not, stays blank.
+		@rule.search_text = params[:desc]
 		@types = Type.all
 	end
 

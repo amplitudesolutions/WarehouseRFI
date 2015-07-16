@@ -30,276 +30,51 @@
 					<p>Delivery Location: <b><%= @requisition.delivery_location %></b></p>
 				</div>
 
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Required</th>
-									<th>Material Description</th>
-									<th class="text-center">MMS Part Number</th>
-									<th class="text-center">Drawing Number</th>
-									<th class="text-center">Work Package Number</th>
-									<th class="text-center">Tag Number</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center">1</td>
-									<td class="text-center"></td>
-									<td>STMH0Z-20502A-KE59CAL-1</td>
-									<td class="text-center"></td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-3">
-						<p>Received By:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Date:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Issued By:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Date:</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="col-sm-3">
-							<img src="<%= image_path('cbilogo.jpg') %>">
-						</div>
-						<div class="col-sm-6">
-							<h3>WAREHOUSE REQUEST FOR ISSUE</h3>
-						</div>
-						<div class="col-sm-3">
-							<p>Project: <b>CF3</b></p>
-							<p>WRFI No: <b>10843</b></p>
-							<p>Date: <b>6/3/2015</b></p>
+				<% @types.each do |t| %>
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<div class="col-sm-12">
+								<div class="col-sm-6">
+									<h4>Component Type: <b><%= t.name %></b></h4>
+								</div>
+								<div class="col-sm-6">
+									<h4 class="pull-right">WRFI No: <b>Auto Generated</b></h4>
+								</div>
+								<div class="col-sm-12">
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th class="text-center">Quantity</th>
+													<th>Material Description</th>
+													<th class="text-center">MMS Part Number</th>
+													<th class="text-center">Drawing Number</th>
+													<th class="text-center">Work Package Number</th>
+													<th class="text-center">Tag Number</th>
+												</tr>
+											</thead>
+											<tbody>
+												<% @materials.each do |m| %>
+													<% if m.material_type === t.id %>
+													<tr>
+														<td class="text-center"><%= m.quantity %></td>
+														<td><%= m.requisition_description %></td>
+														<td class="text-center"><%= m.component_number %></td>
+														<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
+														<td class="text-center"></td>
+														<td class="text-center"></td>
+													</tr>
+													<% end %>
+												<% end %>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-12" style="padding-top: 30px;">
-					<p>Intended Use: <b>Install</b></p>
-				</div>
-
-				<div class="col-sm-6">
-					<p>Requested By: <b>Eric Carter</b></p>
-				</div>
-
-				<div class="col-sm-6">
-					<p>Delivery Location: <b>Area 20</b></p>
-				</div>
-
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Required</th>
-									<th>Material Description</th>
-									<th class="text-center">MMS Part Number</th>
-									<th class="text-center">Drawing Number</th>
-									<th class="text-center">Work Package Number</th>
-									<th class="text-center">Tag Number</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>SPECIAL SUPPORT</td>
-									<td class="text-center">CP20502A-02</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>8,0 PTFE GUIDE</td>
-									<td class="text-center">CS0036-08</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>350,0 210,0 PIPE SHOE, LOOSE POINT</td>
-									<td class="text-center">CS4108-03</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>1/2" EI Component</td>
-									<td class="text-center">20PT1705A</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>1/2" EI Component</td>
-									<td class="text-center">20PT1705B</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<th class="text-center"></th>
-									<td>1/2" EI Component</td>
-									<td class="text-center">20PT1705C</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-sm-12">
-					<div class="col-sm-3">
-						<p>Received By:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Date:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Issued By:</p>
-					</div>
-					<div class="col-sm-3">
-						<p>Date:</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="col-sm-3">
-							<img src="<%= image_path('cbilogo.jpg') %>">
-						</div>
-						<div class="col-sm-6">
-							<h3>WAREHOUSE REQUEST FOR ISSUE</h3>
-						</div>
-						<div class="col-sm-3">
-							<p>Project: <b>CF3</b></p>
-							<p>WRFI No: <b>10844</b></p>
-							<p>Date: <b>6/3/2015</b></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12" style="padding-top: 30px;">
-					<p>Intended Use: <b>Install</b></p>
-				</div>
-
-				<div class="col-sm-6">
-					<p>Requested By: <b>Eric Carter</b></p>
-				</div>
-
-				<div class="col-sm-6">
-					<p>Delivery Location: <b>Area 20</b></p>
-				</div>
-
-				<div class="col-sm-12">
-					<div class="table-responsive">
-						<table class="table table-bordered">
-							<thead>
-								<tr>
-									<th class="text-center">Quantity</th>
-									<th class="text-center">Required</th>
-									<th>Material Description</th>
-									<th class="text-center">MMS Part Number</th>
-									<th class="text-center">Drawing Number</th>
-									<th class="text-center">Work Package Number</th>
-									<th class="text-center">Tag Number</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="text-center">3</td>
-									<td class="text-center"></td>
-									<td>3/4" BLIND FLANGE W. 1/2" NPT HOLE</td>
-									<td class="text-center">FBC1630AI</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">3</td>
-									<td class="text-center"></td>
-									<td>3/4" GATE VALVE, SMALL SIZES</td>
-									<td class="text-center">SKXI-03-FEGA</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">12</td>
-									<td class="text-center"></td>
-									<td>5/8" STUD BOLT / NUTS</td>
-									<td class="text-center">BB---02-BEAA</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">16</td>
-									<td class="text-center"></td>
-									<td>1 1/4" STUD BOLT / NUTS</td>
-									<td class="text-center">BB---02-BEAA</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">1</td>
-									<td class="text-center"></td>
-									<td>10" SPIRAL WOUND GASKET</td>
-									<td class="text-center">DSBH-02-GACA</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-								<tr>
-									<td class="text-center">3</td>
-									<td class="text-center"></td>
-									<td>3/4" SPIRAL WOUND GASKET</td>
-									<td class="text-center">DSBH-02-GACA</td>
-									<td class="text-center">20502A 1 of 4</td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
+				<% end %>
+				
 				<div class="col-sm-12">
 					<div class="col-sm-3">
 						<p>Received By:</p>

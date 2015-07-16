@@ -40,96 +40,9 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- NEED TO HIDE WHEN NO ITEMS EXIST -->
-	<div class="panel panel-danger">
-		<div class="panel-heading">
-			<h4><b>Unknown Items</b> <small>Create rules for these items to be identified correctly</small></h4>
-		</div>
-		<div class="panel-body">
-			<div class="col-sm-12">
-				<div class="table-responsive">
-					<table class="table">
-						<thead>
-							<tr>
-								<th class="text-center">Quantity</th>
-								<th>Material Description</th>
-								<th class="text-center">MMS Part Number</th>
-								<th class="text-center">Drawing Number</th>
-								<th class="text-center">Work Package Number</th>
-								<th class="text-center">Tag Number</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							<% @materials.each do |m| %>
-								<% if m.material_type === "" %>
-								<tr>
-									<td class="text-center"><%= m.quantity %></td>
-									<td><%= m.requisition_description %></td>
-									<td class="text-center"><%= m.component_number %></td>
-									<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
-									<td class="text-center"></td>
-									<td class="text-center"></td>
-									<td class="text-center">
-										<button class="btn btn-default btn-xs">
-											<span class="glyphicon glyphicon-export" title="Create Rule"></span>
-										</button>
-									</td>
-								</tr>
-								<% end %>
-							<% end %>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
+	<div id="materiallist">
+		<%= render 'materials' %>
 	</div>
-
-	<% @types.each do |t| %>
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="col-sm-12">
-					<div class="col-sm-6">
-						<h4>Component Type: <b><%= t.name %></b></h4>
-					</div>
-					<!-- <div class="col-sm-6">
-						<h4 class="pull-right">WRFI No: <b>Auto Generated</b></h4>
-					</div> -->
-					<div class="col-sm-12">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th class="text-center">Quantity</th>
-										<th>Material Description</th>
-										<th class="text-center">MMS Part Number</th>
-										<th class="text-center">Drawing Number</th>
-										<th class="text-center">Work Package Number</th>
-										<th class="text-center">Tag Number</th>
-									</tr>
-								</thead>
-								<tbody>
-									<% @materials.each do |m| %>
-										<% if m.material_type === t.id %>
-										<tr>
-											<td class="text-center"><%= m.quantity %></td>
-											<td><%= m.requisition_description %></td>
-											<td class="text-center"><%= m.component_number %></td>
-											<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
-											<td class="text-center"></td>
-											<td class="text-center"></td>
-										</tr>
-										<% end %>
-									<% end %>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	<% end %>
 	<div class="col-sm-12">
 		<div class="row">
 			<%= f.submit 'Generate', class: 'btn btn-primary pull-right' %>

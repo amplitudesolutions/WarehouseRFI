@@ -43,14 +43,21 @@ class RequisitionsController < ApplicationController
 	end
 
 	def create
-
 		@requisition = Requisition.create(requisition_params)
 
-		# If Component Type = All 
-			# Create All 3
-		# else
-			# Create the selected one.
+		if params[:type_id] == ''
+			@types = Type.all
 
+			# @spool_material = ""
+			# @support_material = ""
+			# @loose_items = ""
+		else
+			@types = Type.where(id: params[:type_id])
+		end
+	end
+
+	def update
+		
 	end
 
 	private
