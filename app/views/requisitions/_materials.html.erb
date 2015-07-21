@@ -133,10 +133,12 @@
 					'<td class="text-center"><%#= m.isometric_number %>-<%#= m.spool%></td>' +
 					'<td class="text-center"></td>' +
 					'<td class="text-center"></td>' +
-				'</tr>'
+				'</tr>' + 
+				'<input type="hidden" id="requisition_materials_attributes_' + counter + '_designation" name="requisition[materials_attributes][' + counter + '][designation]" value="' + $("#spoolDescription").val() + '">'
 			);
 
-
+			counter++;
+			
 			// Clear Textbox
 			$("#spoolDescription").val('');
 			// Close Dialog

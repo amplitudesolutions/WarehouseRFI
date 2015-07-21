@@ -55,9 +55,12 @@ class RequisitionsController < ApplicationController
 
 		@types.each do |t|
 			@requisition = Requisition.create(requisition_params)
-			#@requisition.type_id = t.id
-			#@requisition.save
+			# Add Spools to Database
 
+			#@requisition.materials.create(isometric_number: params[:requisition][:isometric_number], designation: params[:requisition][], type_id: 1)
+			#:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, material_attributes: [:requisition_id, :type_id]
+
+			# Update material with req id.
 			@materials.each do |m|	
 				if m.material_type === t.id
 					m.requisition_id = @requisition.id
@@ -107,6 +110,6 @@ class RequisitionsController < ApplicationController
 
 	private
 		def requisition_params
-			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, material_attributes: [:requisition_id, :type_id])
+			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, materials_attributes: [:id, :designation, :requisition_id, :type_id])
 		end
 end
