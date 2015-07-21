@@ -16,7 +16,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="">Component Type</label>
-					<%= f.collection_select(:type_id, @types, :id, :name, {}, class: 'form-control') %>
+					<%= f.collection_select(:type_id, @types, :id, :name, {prompt: true}, class: 'form-control') %>
 				</div>
 			</div>
 			<!-- <div class="col-sm-12">
