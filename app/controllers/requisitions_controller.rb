@@ -43,21 +43,66 @@ class RequisitionsController < ApplicationController
 	end
 
 	def create
-		@requisition = Requisition.create(requisition_params)
+		#Temporary
+		@types = Type.all
+		# if params[:type_id] == ''
+		# 	@types = Type.all
+		# else
+		# 	@types = Type.where(id: params[:type_id])
+		# end
 
-		if params[:type_id] == ''
-			@types = Type.all
+		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
 
-			# @spool_material = ""
-			# @support_material = ""
-			# @loose_items = ""
-		else
-			@types = Type.where(id: params[:type_id])
+		@types.each do |t|
+			@requisition = Requisition.create(requisition_params)
+			#@requisition.type_id = t.id
+			#@requisition.save
+
+			@materials.each do |m|	
+				if m.material_type === t.id
+					m.requisition_id = @requisition.id
+					m.save
+				end
+			end
 		end
+
+		@settings = Setting.find(1)
+
+		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
 
 	def update
-		
+		#Temporary
+		@types = Type.all
+		# if params[:type_id] == ''
+		# 	@types = Type.all
+		# else
+		# 	@types = Type.where(id: params[:type_id])
+		# end
+
+		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
+		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
+
+		@types.each do |t|
+			@requisition = Requisition.find(params[:id])
+			@requisitions.each do |r|
+				r.update_attributes(requisition_params)
+			end
+			#@requisition.update_attributes(requisition_params)
+			#@requisition.type_id = t.id
+			#@requisition.save
+
+			@materials.each do |m|	
+				if m.material_type === t.id
+					m.requisition_id = @requisition.id
+					m.save
+				end
+			end
+		end
+
+		@settings = Setting.find(1)
+
+		#@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
 
 	private

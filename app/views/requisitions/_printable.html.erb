@@ -1,0 +1,85 @@
+<% @requisitions.each do |r| %>
+	<div class="container">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-sm-12">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="col-sm-3">
+								<img src="<%= image_path('cbilogo.jpg') %>">
+							</div>
+							<div class="col-sm-6">
+								<h3>WAREHOUSE REQUEST FOR ISSUE</h3>
+							</div>
+							<div class="col-sm-3">
+								<p>Project: <b><%= r.project %></b></p>
+								<p>WRFI No: <b><%=@settings.wrfi_prefix %><%= r.id.to_s.rjust(5, '0') %></b></p>
+								<p>Date: <b><%= r.date %></b></p>
+								<p>Work Package No: <b><%= r.work_package_number %></b></p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12" style="padding-top: 30px;">
+						<p>Intended Use: <b><%= r.intended_use %></b></p>
+					</div>
+
+					<div class="col-sm-6">
+						<p>Requested By: <b><%= r.requested_by %></b></p>
+					</div>
+
+					<div class="col-sm-6">
+						<p>Delivery Location: <b><%= r.delivery_location %></b></p>
+					</div>
+					<div class="col-sm-12">
+						<div class="col-sm-12">
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th class="text-center">Quantity</th>
+											<th>Material Description</th>
+											<th class="text-center">MMS Part Number</th>
+											<th class="text-center">Drawing Number</th>
+											<th class="text-center">Work Package Number</th>
+											<th class="text-center">Tag Number</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% r.materials.each do |m| %>
+											<%# if m.material_type === t.id %>
+											<tr>
+												<td class="text-center"><%= m.quantity %></td>
+												<td><%= m.requisition_description %></td>
+												<td class="text-center"><%= m.component_number %></td>
+												<td class="text-center"><%= m.isometric_number %> <%= m.spool%></td>
+												<td class="text-center"></td>
+												<td class="text-center"></td>
+											</tr>
+											<% #end %>
+										<% end %>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="col-sm-3">
+								<p style="border-bottom: 1px solid #000000">Received By:</p>
+							</div>
+							<div class="col-sm-3">
+								<p style="border-bottom: 1px solid #000000">Date:</p>
+							</div>
+							<div class="col-sm-3">
+								<p style="border-bottom: 1px solid #000000">Issued By:</p>
+							</div>
+							<div class="col-sm-3">
+								<p style="border-bottom: 1px solid #000000">Date:</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% end %>
