@@ -60,6 +60,9 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    creek (1.0.8)
+      nokogiri (~> 1.6.0)
+      rubyzip (>= 1.0.0)
     debug_inspector (0.0.2)
     debugger (1.6.8)
       columnize (>= 0.3.1)
@@ -128,9 +131,6 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
-    roo (2.0.1)
-      nokogiri (~> 1)
-      rubyzip (~> 1.1, < 2.0.0)
     rubyzip (1.1.7)
     sass (3.4.15)
     sass-rails (5.0.3)
@@ -174,13 +174,13 @@ DEPENDENCIES
   aws-sdk (~> 2)
   bootstrap-sass (~> 3.3.5)
   coffee-rails (~> 4.1.0)
+  creek
   debugger
   jbuilder (~> 2.0)
   jquery-rails
   pg
   rails (= 4.2.1)
   rails_12factor
-  roo (~> 2.0.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   turbolinks

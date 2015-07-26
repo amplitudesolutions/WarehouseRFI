@@ -10,7 +10,8 @@ gem 'pg'
 gem 'rails_12factor', group: :production
 
 # Gem for Excel Parsing
-gem 'roo', '~> 2.0.0'
+#gem 'roo', '~> 2.0.0'
+gem "creek"
 
 # Gem for AWS S3 Storage
 gem 'aws-sdk', '~> 2'
