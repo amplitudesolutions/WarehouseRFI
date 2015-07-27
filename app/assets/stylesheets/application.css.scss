@@ -23,3 +23,21 @@ body { padding-top: 70px; padding-bottom: 20px }
   background-color: #fff;
   cursor: pointer;
 }
+
+
+
+@media print{
+	@page { size: landscape; margin: 0.75cm; }
+	footer { page-break-after: always; }
+	body { padding-top: 0px; padding-bottom: 20px; }
+	h3 { font-size: 20px; }
+
+	footer:last-child {
+	    page-break-after: auto;
+	}
+
+	/*div#requisition-panel {
+		min-height: 700px;
+	}*/
+}
+

@@ -4,7 +4,7 @@ class RequisitionsController < ApplicationController
 	end
 
 	def show
-	
+		@requisition = Requisition.find(params[:id])
 	end
 
 	def new
@@ -43,8 +43,9 @@ class RequisitionsController < ApplicationController
 	end
 
 	def create
-		#Temporary
+		#Temporary - Need to pass the type_id if only 1 type selected.
 		@types = Type.all
+
 		# if params[:type_id] == ''
 		# 	@types = Type.all
 		# else
@@ -56,9 +57,6 @@ class RequisitionsController < ApplicationController
 		@types.each do |t|
 			@requisition = Requisition.create(requisition_params)
 			# Add Spools to Database
-
-			#@requisition.materials.create(isometric_number: params[:requisition][:isometric_number], designation: params[:requisition][], type_id: 1)
-			#:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, material_attributes: [:requisition_id, :type_id]
 
 			# Update material with req id.
 			@materials.each do |m|	
@@ -75,7 +73,7 @@ class RequisitionsController < ApplicationController
 	end
 
 	def update
-		#Temporary
+		#Temporary - Need to pass the type_id if only 1 type selected.
 		@types = Type.all
 		# if params[:type_id] == ''
 		# 	@types = Type.all
