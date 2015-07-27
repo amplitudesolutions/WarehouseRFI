@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   get 'requisitions/print'
 
   resources :requisitions
-  resources :settings
+  resources :settings #, only: [:index, :update, :create]
+  #get 'settings/:id' => 'settings#index'
   resources :rules
  
 

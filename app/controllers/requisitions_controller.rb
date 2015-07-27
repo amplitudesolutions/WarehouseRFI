@@ -56,6 +56,8 @@ class RequisitionsController < ApplicationController
 
 		@types.each do |t|
 			@requisition = Requisition.create(requisition_params)
+			@requisition.type_id = t.id
+			@requisition.save
 			# Add Spools to Database
 
 			# Update material with req id.
@@ -85,19 +87,20 @@ class RequisitionsController < ApplicationController
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 
 		@types.each do |t|
-			@requisition = Requisition.find(params[:id])
+			#@requisition = Requisition.find(params[:id])
 			@requisitions.each do |r|
 				r.update_attributes(requisition_params)
-			end
-			#@requisition.update_attributes(requisition_params)
-			#@requisition.type_id = t.id
-			#@requisition.save
+			
+				#@requisition.update_attributes(requisition_params)
+				#@requisition.type_id = t.id
+				#@requisition.save
 
-			@materials.each do |m|	
-				if m.material_type === t.id
-					m.requisition_id = @requisition.id
-					m.save
-				end
+				# @materials.each do |m|	
+				# 	if m.material_type === t.id
+				# 		m.requisition_id = r.id
+				# 		m.save
+				# 	end
+				# end
 			end
 		end
 
@@ -108,6 +111,6 @@ class RequisitionsController < ApplicationController
 
 	private
 		def requisition_params
-			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, materials_attributes: [:id, :designation, :requisition_id, :type_id])
+			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, :type_id, materials_attributes: [:id, :designation, :requisition_id, :type_id])
 		end
 end

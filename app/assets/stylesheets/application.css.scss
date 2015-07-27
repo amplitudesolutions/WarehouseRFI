@@ -24,6 +24,15 @@ body { padding-top: 70px; padding-bottom: 20px }
   cursor: pointer;
 }
 
+.list-group-item.selected:before {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 2px;
+	content: "";
+	background-color: #337ab7;
+}
 
 
 @media print{
@@ -40,4 +49,3 @@ body { padding-top: 70px; padding-bottom: 20px }
 		min-height: 700px;
 	}*/
 }
-

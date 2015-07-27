@@ -1,6 +1,13 @@
 class SettingsController < ApplicationController
 	def index
+		@settings = Setting.find(1)
+	end
 
+	def update
+		@settings = Setting.find(1)
+
+		@settings.update_attributes(settings_params)
+		redirect_to settings_path
 	end
 
 	def create
@@ -66,4 +73,9 @@ class SettingsController < ApplicationController
 
 		# flash.now[:notice] = xlsx.sheet(0).cell(12, 'AD') + ' x ' + xlsx.sheet(0).cell(12, 'Z') + ' ' + xlsx.sheet(0).cell(12, 'X')
 	end
+
+	private
+		def settings_params
+			params.require(:setting).permit(:wrfi_prefix)
+		end
 end

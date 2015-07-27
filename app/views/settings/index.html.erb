@@ -1,33 +1,72 @@
 <div class="container">
-	<div class="col-sm-6 form-group">
-		<%= form_tag settings_path, enctype: 'multipart/form-data' do %>
-			<label for="excelUpload">File Upload</label>
-			<%= file_field_tag :file, class: 'form-control' %>
-			<span class="help-block">Current file: XXXXXXX.xlsx</span>
-			<%= submit_tag 'Upload File', class: 'btn btn-primary pull-right' %>
-		<% end %>
-	</div>
-	<div class="col-sm-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				File History
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Settings</div>
+						<div class="list-group">
+							<a class="list-group-item selected" href="settings">General</a>
+							<a class="list-group-item">Data Upload</a>
+							<a class="list-group-item">Users</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<table class="table">
-		    	<thead>
-		    		<tr>
-		    			<th>Filename</th>
-		    			<th class="text-center">Upload Date</th>
-		    			<th class="text-center"></th>
-		    		</tr>
-		    	</thead>
-		    	<tbody>
-		    		<tr>
-		    			<td>excel.xlsx</td>
-		    			<td class="text-center">July 07, 2015</td>
-		    			<td class="text-center">Download</td>
-		    		</tr>
-		    	</tbody>
-			</table>
+		</div>
+		<div class="col-sm-9">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">General</div>
+					<div class="panel-body">
+						<%= form_for @settings do |f| %>
+							<div class="form-group col-sm-3">
+								<label for="">Requisition Prefix</label>
+								<%= f.text_field :wrfi_prefix, class: "form-control" %>
+							</div>
+							<div class="col-sm-12">
+								<%= f.submit "Save Settings", class: "btn btn-primary" %>
+							</div>
+						<% end %>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Data Upload</div>
+					<div class="panel-body">
+						<div class="col-sm-6 form-group">
+							<%= form_tag settings_path, enctype: 'multipart/form-data' do %>
+								<label for="excelUpload">File Upload</label>
+								<%= file_field_tag :file, class: 'form-control' %>
+								<span class="help-block">Current file: XXXXXXX.xlsx</span>
+								<%= submit_tag 'Upload File', class: 'btn btn-primary pull-right' %>
+							<% end %>
+						</div>
+						<div class="col-sm-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									File History
+								</div>
+								<table class="table">
+							    	<thead>
+							    		<tr>
+							    			<th>Filename</th>
+							    			<th class="text-center">Upload Date</th>
+							    			<th class="text-center"></th>
+							    		</tr>
+							    	</thead>
+							    	<tbody>
+							    		<tr>
+							    			<td>excel.xlsx</td>
+							    			<td class="text-center">July 07, 2015</td>
+							    			<td class="text-center">Download</td>
+							    		</tr>
+							    	</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
