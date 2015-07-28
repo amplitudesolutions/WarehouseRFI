@@ -38,6 +38,7 @@
 										<thead>
 											<tr>
 												<th class="text-center">Quantity</th>
+												<th class="text-center">Required</th>
 												<th>Material Description</th>
 												<th class="text-center">MMS Part No.</th>
 												<th class="text-center">Drawing No.</th>
@@ -50,6 +51,7 @@
 												<%# if m.material_type === t.id %>
 												<tr>
 													<td class="text-center"><%= m.quantity %></td>
+													<td class="text-center"></td>
 													<td><%= m.requisition_description %></td>
 													<td class="text-center"><%= m.component_number %></td>
 													<td class="text-center"><%= m.isometric_number %>-<%= m.sheet_no%></td>
