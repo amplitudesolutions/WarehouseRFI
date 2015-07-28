@@ -28,6 +28,11 @@ class Material < ActiveRecord::Base
 		display
 	end
 
+	def sheet_no
+		letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+		"S" + (letters.index(spool.first) + 1).to_s.rjust(2, '0')
+	end
+
 	def material_type
 		type_id = ''
 		rules = Rule.all

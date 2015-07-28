@@ -3,5 +3,5 @@ module ApplicationHelper
       if params.merge(options) == params
         'active'
       end
-  end
+  	end
 end
