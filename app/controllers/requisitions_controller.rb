@@ -64,8 +64,10 @@ class RequisitionsController < ApplicationController
 			# Add Spools to Database only if type equals spool
 			if t.id === 1 #Indicates a spool
 				#Add appropriate spool to materials
-				params[:material].each do |k, v|
-					@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+				if params[:material].present?
+					params[:material].each do |k, v|
+						@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+					end
 				end
 			end
 		
@@ -120,6 +122,6 @@ class RequisitionsController < ApplicationController
 
 	private
 		def requisition_params
-			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, :type_id) #, materials_attributes: [:id, :isometric_number, :quantity, :designation, :spool, :requisition_id, :type_id])
+			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, :type_id)
 		end
 end
