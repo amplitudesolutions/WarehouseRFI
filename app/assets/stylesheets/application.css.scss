@@ -38,8 +38,9 @@ body { padding-top: 70px; padding-bottom: 20px }
 @media print{
 	@page { size: landscape; margin: 0.75cm; }
 	footer { page-break-after: always; }
-	body { padding-top: 0px; padding-bottom: 20px; }
-	h3 { font-size: 20px; }
+	body { padding-top: 0px; padding-bottom: 20px; font-size: 10px}
+	h3 { font-size: 14px; }
+	img { max-height: 50px; }
 
 	footer:last-child {
 	    page-break-after: auto;
