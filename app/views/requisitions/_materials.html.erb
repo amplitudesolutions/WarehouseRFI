@@ -104,6 +104,14 @@
 					<label for="">Description</label>
 					<input type="text" class="form-control" id="spoolDescription">
 				</div>
+				<div class="form-group">
+					<label for="">Drawing</label>
+					<select id="spoolDrawing" class="form-control">
+						<% @sheets.each do |s| %>
+						<option value="<%= s.spool %>"><%= s.isometric_number %>-<%= s.sheet_no %></option>
+						<% end %>
+					</select>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-primary" id="btnAddSpool" type="button">Add</button>
@@ -130,11 +138,13 @@
 					'<td class="text-center">1</td>' +
 					'<td>' + $("#spoolDescription").val() + '</td>' +
 					'<td class="text-center"></td>' +
-					'<td class="text-center"><%#= m.isometric_number %>-<%#= m.spool%></td>' +
+					'<td class="text-center">' + $("#spoolDrawing option:selected").text() + '</td>' +
 					'<td class="text-center"></td>' +
 					'<td class="text-center"></td>' +
 				'</tr>' + 
-				'<input type="hidden" id="requisition_materials_attributes_' + counter + '_designation" name="requisition[materials_attributes][' + counter + '][designation]" value="' + $("#spoolDescription").val() + '">'
+				'<input type="hidden" id="material_' + counter + '_designation" name="material[' + counter + '][designation]" value="' + $("#spoolDescription").val() + '">' +
+				'<input type="hidden" id="material_' + counter + '_spool" name="material[' + counter + '][spool]" value="' + $("#spoolDrawing").val() + '">' +
+				'<input type="hidden" id="material_' + counter + '_isometric_number" name="material[' + counter + '][isometric_number]" value="<%= @isometric_number %>">'
 			);
 
 			counter++;

@@ -40,6 +40,8 @@ class RequisitionsController < ApplicationController
 
 		# ID_Prefabrication V = Prefab (Spools) - M = Field Material
 		@materials = Material.where(isometric_number: @isometric_number, id_prefabrication: 'M')
+		#@sheets = Material.where(isometric_number: @isometric_number, id_prefabrication: 'M').select('DISTINCT spool')
+		@sheets = Material.select(:isometric_number, :spool).distinct.where(isometric_number: @isometric_number, id_prefabrication: 'M').order(:spool)
 	end
 
 	def create
@@ -58,8 +60,15 @@ class RequisitionsController < ApplicationController
 			@requisition = Requisition.create(requisition_params)
 			@requisition.type_id = t.id
 			@requisition.save
-			# Add Spools to Database
 
+			# Add Spools to Database only if type equals spool
+			if t.id === 1 #Indicates a spool
+				#Add appropriate spool to materials
+				params[:material].each do |k, v|
+					@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+				end
+			end
+		
 			# Update material with req id.
 			@materials.each do |m|	
 				if m.material_type === t.id
@@ -111,6 +120,6 @@ class RequisitionsController < ApplicationController
 
 	private
 		def requisition_params
-			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, :type_id, materials_attributes: [:id, :designation, :requisition_id, :type_id])
+			params.require(:requisition).permit(:project, :date, :work_package_number, :intended_use, :requested_by, :delivery_location, :isometric_number, :type_id) #, materials_attributes: [:id, :isometric_number, :quantity, :designation, :spool, :requisition_id, :type_id])
 		end
 end

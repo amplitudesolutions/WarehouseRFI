@@ -3,19 +3,6 @@ class Material < ActiveRecord::Base
 	belongs_to :type
 
 	def requisition_description
-		# if designation === 'STUD BOLT / NUTS'
-		# 	# "#{dn_2} x #{dimension_1} #{designation}"
-		# 	dn_2 + ' x ' + dimension_1 + ' ' + designation
-		# elsif designation === 'BLIND FLANGE'
-		# 	dn + ' ' + designation
-		# elsif designation === 'SPIRAL WOUND GASKET'
-		# 	dn + ' ' + designation
-		# elsif designation === 'U-BOLT'
-		# 	dn + ' ' + designation
-		# else
-		# 	designation
-		# end
-
 		display = designation
 		rules = Rule.all
 
@@ -34,15 +21,19 @@ class Material < ActiveRecord::Base
 	end
 
 	def material_type
-		type_id = ''
+		material_type_id = ''
 		rules = Rule.all
 
-		rules.each do |r|
-			if r.search_text === designation
-				type_id = r.type_id
+		if type_id === 1
+			material_type_id = type_id
+		else
+			rules.each do |r|
+				if r.search_text === designation
+					material_type_id = r.type_id
+				end
 			end
 		end
 
-		type_id
+		material_type_id
 	end
 end
