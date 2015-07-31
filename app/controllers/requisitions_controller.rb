@@ -42,6 +42,8 @@ class RequisitionsController < ApplicationController
 		@materials = Material.where(isometric_number: @isometric_number, id_prefabrication: 'M')
 		#@sheets = Material.where(isometric_number: @isometric_number, id_prefabrication: 'M').select('DISTINCT spool')
 		@sheets = Material.select(:isometric_number, :spool).distinct.where(isometric_number: @isometric_number, id_prefabrication: 'M').order(:spool)
+
+		@find_materials = @materials.select{|mat| mat.material_type === 3}
 	end
 
 	def create
@@ -57,25 +59,38 @@ class RequisitionsController < ApplicationController
 		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
 
 		@types.each do |t|
-			@requisition = Requisition.create(requisition_params)
-			@requisition.type_id = t.id
-			@requisition.save
 
+			# If Spool
 			# Add Spools to Database only if type equals spool
 			if t.id === 1 #Indicates a spool
 				#Add appropriate spool to materials
+				@requisition = Requisition.create(requisition_params)
 				if params[:material].present?
 					params[:material].each do |k, v|
 						@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
 					end
 				end
-			end
-		
-			# Update material with req id.
-			@materials.each do |m|	
-				if m.material_type === t.id
-					m.requisition_id = @requisition.id
-					m.save
+			# If Not Spool
+			else
+				@materials_by_type = @materials.select{|m| m.material_type === t.id}
+
+				@sheets = @materials_by_type.uniq{|s| s.spool}
+
+				#Need to group items by sheet no, A01, B01, C01 then create appropriate Req's for them.
+				@sheets.each do |s|
+					#@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', spool: s.spool)
+					
+					@requisition = Requisition.create(requisition_params)
+					@requisition.type_id = t.id
+					@requisition.save
+				
+					# Update material with req id.
+					@materials_by_type.each do |m|	
+						if m.spool === s.spool
+							m.requisition_id = @requisition.id
+							m.save
+						end
+					end			
 				end
 			end
 		end
