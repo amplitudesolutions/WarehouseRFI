@@ -24,6 +24,10 @@
 								<label for="">Requisition Prefix</label>
 								<%= f.text_field :wrfi_prefix, class: "form-control" %>
 							</div>
+							<div class="form-group col-sm-3">
+								<label for="">Items Per Requisition</label>
+								<%= f.text_field :row_max, class: "form-control" %>
+							</div>
 							<div class="col-sm-12">
 								<%= f.submit "Save Settings", class: "btn btn-primary" %>
 							</div>

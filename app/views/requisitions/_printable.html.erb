@@ -60,6 +60,17 @@
 												</tr>
 												<% #end %>
 											<% end %>
+											<% (1..@settings.row_max-r.materials.count).each do |line| %>
+												<tr>
+													<td class="text-center">&nbsp;</td>
+													<td class="text-center">&nbsp;</td>
+													<td>&nbsp;</td>
+													<td class="text-center">&nbsp;</td>
+													<td class="text-center">&nbsp;</td>
+													<td class="text-center">&nbsp;</td>
+													<td class="text-center">&nbsp;</td>
+												</tr>
+											<% end %>
 										</tbody>
 									</table>
 								</div>
