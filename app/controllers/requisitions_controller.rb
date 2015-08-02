@@ -64,13 +64,28 @@ class RequisitionsController < ApplicationController
 			# Add Spools to Database only if type equals spool
 			if t.id === 1 #Indicates a spool
 				#Add appropriate spool to materials
+				sheets = []
 				if params[:material].present?
-					@requisition = Requisition.create(requisition_params)
-					
-					params[:material].each do |k, v|
-						@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+					params[:material].each do |k,v|
+						sheets.push(v[:spool])
 					end
 				end
+
+				#Need to group items by sheet no, A01, B01, C01 then create appropriate Req's for them.
+				sheets.uniq.each do |s|
+					@requisition = Requisition.create(requisition_params)
+					@requisition.type_id = t.id
+					@requisition.save
+					
+					if params[:material].present?
+						params[:material].each do |k, v|
+							if s === v[:spool]
+								@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+							end
+						end
+					end
+				end
+
 			# If Not Spool
 			else
 				@materials_by_type = @materials.select{|m| m.material_type === t.id}
@@ -84,14 +99,14 @@ class RequisitionsController < ApplicationController
 					@requisition = Requisition.create(requisition_params)
 					@requisition.type_id = t.id
 					@requisition.save
-				
+					
 					# Update material with req id.
 					@materials_by_type.each do |m|	
 						if m.spool === s.spool
 							m.requisition_id = @requisition.id
 							m.save
 						end
-					end			
+					end
 				end
 			end
 		end
