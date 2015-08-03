@@ -13,4 +13,6 @@
 # Rule.create(search_text: 'BLIND FLANGE', display_text: '#{dn} #{designation}')
 # Rule.create(search_text: 'STUD BOLT / NUTS', display_text: '#{dn_2} x #{dimension_1} #{designation}')
 
+#Initial Database population required
 Setting.create(wrfi_prefix: 'CBI-')
+Setting.create(row_max: 17)
