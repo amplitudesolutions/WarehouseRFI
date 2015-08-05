@@ -15,8 +15,8 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "datepicker";
 @import "jquery-ui-1.10.4.custom.min";
+@import "datepicker";
 
 body { padding-top: 70px; padding-bottom: 20px }
 
@@ -35,6 +35,20 @@ body { padding-top: 70px; padding-bottom: 20px }
 	background-color: #337ab7;
 }
 
+.ui-autocomplete {
+    max-height: 400px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    /* add padding to account for vertical scrollbar */
+    padding-right: 20px;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+    height: 400px;
+}
 
 @media print{
 	@page { size: landscape; margin: 0.75cm; }
