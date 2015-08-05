@@ -37,8 +37,9 @@
 									<table class="table table-bordered table-condensed">
 										<thead>
 											<tr>
-												<th class="text-center">Quantity</th>
-												<th class="text-center">Required</th>
+												<th class="text-center">Qty</th>
+												<th class="text-center">Req</th>
+												<th class="text-center">Ship</th>
 												<th>Material Description</th>
 												<th class="text-center">MMS Part No.</th>
 												<th class="text-center">Drawing No.</th>
@@ -52,6 +53,7 @@
 												<tr>
 													<td class="text-center"><%= m.quantity %></td>
 													<td class="text-center"></td>
+													<td clas="text-center"></td>
 													<td><%= m.requisition_description %></td>
 													<td class="text-center"><%= m.component_number %></td>
 													<td class="text-center"><%= m.isometric_number %>-<%= m.sheet_no%></td>
@@ -62,6 +64,7 @@
 											<% end %>
 											<% (1..@settings.row_max-r.materials.count).each do |line| %>
 												<tr>
+													<td class="text-center">&nbsp;</td>
 													<td class="text-center">&nbsp;</td>
 													<td class="text-center">&nbsp;</td>
 													<td>&nbsp;</td>
