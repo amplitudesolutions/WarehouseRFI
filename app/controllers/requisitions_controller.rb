@@ -56,6 +56,8 @@ class RequisitionsController < ApplicationController
 		# 	@types = Type.where(id: params[:type_id])
 		# end
 
+		@settings = Setting.find(1)
+
 		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
 
 		@types.each do |t|
@@ -96,22 +98,33 @@ class RequisitionsController < ApplicationController
 				@sheets.each do |s|
 					#@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', spool: s.spool)
 					
-					@requisition = Requisition.create(requisition_params)
-					@requisition.type_id = t.id
-					@requisition.save
+					# @requisition = Requisition.create(requisition_params)
+					# @requisition.type_id = t.id
+					# @requisition.save
 					
 					# Update material with req id.
-					@materials_by_type.each do |m|	
+					row = @settings.row_max
+
+					@materials_by_type.each do |m|
+					
+						if row === @settings.row_max
+							@requisition = Requisition.create(requisition_params)
+							@requisition.type_id = t.id
+							@requisition.save
+							row = 0
+						end
+
 						if m.spool === s.spool
 							m.requisition_id = @requisition.id
 							m.save
+							row += 1
 						end
 					end
 				end
 			end
 		end
 
-		@settings = Setting.find(1)
+		#@settings = Setting.find(1)
 
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
