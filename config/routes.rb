@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   get 'dashboard/index'
   get 'requisitions/print'
 
+  get 'requisitions/get_iso_list'
   resources :requisitions
+  
+
   resources :settings #, only: [:index, :update, :create]
   #get 'settings/:id' => 'settings#index'
   resources :rules

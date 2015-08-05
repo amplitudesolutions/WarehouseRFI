@@ -8,6 +8,10 @@
 				<%= collection_select(nil, :isometric_number, @iso, :isometric_number, :isometric_number, {}, class: 'form-control' ) %>
 			</div>
 			<div class="form-group">
+				<label>ISO</label>
+				<%= text_field nil, :term, class: 'form-control' %>
+			</div>
+			<div class="form-group">
 				<label form="typeSearch">Component Type</label>
 				<%= collection_select(nil, :type_id, @types, :id, :name, {include_blank: 'All Types'}, class: 'form-control') %>
 			</div>
@@ -18,6 +22,28 @@
 </div>
 
 <script>
+
+	$(document).ready(function() {
+		$("#_term").autocomplete({
+			source: function( request, response ) {
+	        $.ajax({
+	          url: "/requisitions/get_iso_list",
+	          dataType: "json",
+	          data: {
+	            term: request.term
+	          },
+	          success: function( data ) {
+	            response( $.map( data, function( iso ) {
+                    return {
+                        label: iso.isometric_number
+                    }
+                }));
+	          }
+	        });
+	      },
+	      minLength: 1
+		})
+	});
 
 // $('#search').click(function() {
 // 	window.location.href= window.location + "requisitions";
