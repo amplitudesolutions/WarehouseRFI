@@ -5,7 +5,6 @@ class RequisitionsController < ApplicationController
 
 	def get_iso_list
 		@isos = Material.select(:isometric_number).distinct.where("lower(isometric_number) LIKE ?", "#{params[:term].downcase}%").order(isometric_number: :asc)
-		#Requi.order(:name).where("lower(cities.name) LIKE ?", "%#{params[:term].downcase}%")
 		respond_to do |format|
 			format.json { render json: @isos }
 		end
