@@ -19,7 +19,7 @@ class RequisitionsController < ApplicationController
 		# ISO Number + Sheet No + Seq. Number
 		# ie) 00001A + A01 (Change A to S) + XX
 	
-		@isometric_number = params[:isometric_number]
+		@isometric_number = params[:isometric_number].strip
 		@types = Type.all
 
 		@requisition = Requisition.where(isometric_number: @isometric_number).take
