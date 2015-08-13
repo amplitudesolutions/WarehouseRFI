@@ -48,7 +48,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<% r.materials.each do |m| %>
+											<% r.materials.order("spool asc").each do |m| %>
 												<%# if m.material_type === t.id %>
 												<tr>
 													<td class="text-center"><%= m.quantity %></td>
