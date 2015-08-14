@@ -1,14 +1,14 @@
 <div class="container">
 	<div class="col-sm-3">&nbsp;</div>
 	<div class="col-sm-6">
-		<%= form_tag(new_requisition_path, method: 'get') do %>
+		<%= form_tag(new_requisition_path, method: 'get', class: 'iso_select_form') do %>
 		<%#= form_for :requisition, url: new_requisition_path, method: 'get' do |f| %>
 			<!-- <div class="form-group">
 				<label form="isoSearch">ISO</label>
 				<%#= collection_select(nil, :isometric_number, @iso, :isometric_number, :isometric_number, {}, class: 'form-control' ) %>
 			</div> -->
-			<div class="form-group">
-				<label>ISO</label>
+			<div class="form-group" id="_isometric_numberDiv">
+				<label class="control-label">ISO</label>
 				<%= text_field nil, :isometric_number, class: 'form-control' %>
 				<span id="isoHelp" class="help-block">Start typing the ISO number and the list will appear</span>
 			</div>
@@ -44,6 +44,38 @@
 	      },
 	      minLength: 1
 		})
+
+		var requiredFields = ['_isometric_number'];
+
+		$(".iso_select_form").submit(function() {
+			if (validateform()) {
+	          return true;
+	        } else { return false; } 
+		});
+
+		function validateform() {
+			var bValid = true;      
+			jQuery.each ( requiredFields, function (i, val) {
+				if ($("#" + val).prop('type') == "text" || $("#" + val).prop('type') == "textarea") {
+					if ($("#" + val).val() == "") {
+					$("#" + val + "Div").addClass("has-error");
+					bValid = false;
+				} else { 
+					$("#" + val + "Div").removeClass("has-error");
+				};
+		    	} else if ($("#" + val).prop('type') == "checkbox") {
+					if ($("#" + val).prop("checked") == false) {
+						$("#" + val + "Div").addClass("has-error");
+			        	bValid = false;
+					} else { 
+						$("#" + val + "Div").removeClass("has-error");
+					};
+				};
+			});
+
+		  	return bValid;
+		};
+
 	});
 
 </script>
