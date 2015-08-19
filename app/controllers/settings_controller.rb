@@ -14,7 +14,7 @@ class SettingsController < ApplicationController
 		## TODO Upload it into directory or unique filename.
 
 		s3 = Aws::S3::Resource.new
-		obj = s3.bucket('wrfi.dev').object(params[:file].original_filename)
+		obj = s3.bucket(ENV['AWS_S3_BUCKET']).object(params[:file].original_filename)
 		obj.upload_file(params[:file].tempfile)
 
 		#xlsx = Roo::Excelx.new(params[:file].tempfile)
