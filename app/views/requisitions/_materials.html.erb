@@ -93,33 +93,6 @@
 	</div>
 <% end %>
 
-<div id="spool-modal" class="modal fade add-spool" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add Spool</h4>
-			</div>
-			<div class="modal-body">				
-				<div class="form-group">
-					<label for="">Description</label>
-					<input type="text" class="form-control" id="spoolDescription">
-				</div>
-				<div class="form-group">
-					<label for="">Drawing</label>
-					<select id="spoolDrawing" class="form-control">
-						<% @sheets.each do |s| %>
-						<option value="<%= s.spool %>"><%= s.isometric_number %>-<%= s.sheet_no %></option>
-						<% end %>
-					</select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-primary" id="btnAddSpool" type="button">Add</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <script>
 
 	$(document).ready(function() {
