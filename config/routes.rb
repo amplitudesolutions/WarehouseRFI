@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   get 'requisitions/print'
 
   get 'requisitions/get_iso_list'
-  resources :requisitions
+
+  resources :requisitions do
+    resources :spools
+  end
   
 
   resources :settings #, only: [:index, :update, :create]

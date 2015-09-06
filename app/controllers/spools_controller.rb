@@ -1,0 +1,2 @@
+class SpoolsController < ApplicationController
+end
