@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'requisitions/get_iso_list'
 
   resources :requisitions do
-    resources :spools
+    resources :spools do
+      get 'delete'
+    end
   end
   
 

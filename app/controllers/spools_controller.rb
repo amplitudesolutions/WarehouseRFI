@@ -35,6 +35,18 @@ class SpoolsController < ApplicationController
 		@isometric_number = params[:requisition_id]
 		@types = Type.all
 	end
+
+	def delete
+		@material = Material.find(params[:spool_id])
+	end
+
+	def destroy
+		@material = Material.find(params[:id])
+		@material.destroy
+		@materials = Material.where(isometric_number: params[:requisition_id], id_prefabrication: 'M')
+		@isometric_number = params[:requisition_id]
+		@types = Type.all
+	end
 end
 
 #(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')

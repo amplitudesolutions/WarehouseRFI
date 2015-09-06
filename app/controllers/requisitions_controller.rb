@@ -174,6 +174,9 @@ class RequisitionsController < ApplicationController
 			end
 		end
 
+		## If new spool created, or item allocated to Loose Piping or Supports, need to create new req's? or add
+		## to existing req?
+
 		@settings = Setting.find(1)
 
 		#@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])

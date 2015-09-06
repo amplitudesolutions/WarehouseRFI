@@ -79,8 +79,7 @@
 										<% if t.name === "Spool" %>
 											<td class="text-center">
 												<%= link_to 'Edit', edit_requisition_spool_path(m.isometric_number, m.id), remote: true, class: "btn btn-primary btn-xs" %>
-												<%#= link_to 'Delete', admin_position_delete_path(i), remote: true, class: "btn btn-danger btn-xs" %>
-												<button class="btn btn-danger btn-xs">Remove</button>	
+												<%= link_to 'Delete', requisition_spool_delete_path(m.isometric_number, m.id), remote: true, class: "btn btn-danger btn-xs" %>	
 											</td>
 										<% end %>
 									</tr>
