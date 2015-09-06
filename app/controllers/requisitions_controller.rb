@@ -71,7 +71,7 @@ class RequisitionsController < ApplicationController
 
 			# If Spool
 			# Add Spools to Database only if type equals spool
-			if t.id === 1 #Indicates a spool
+			# if t.id === 1 #Indicates a spool
 				#Add appropriate spool to materials
 
 				# GROUP BY SHEET: This is part of the grouping only by sheets.
@@ -86,22 +86,22 @@ class RequisitionsController < ApplicationController
 				
 				# GROUP BY SHEET: This is part of the grouping only by sheets.
 				#sheets.uniq.each do |s|
-					if params[:material].present?
-						@requisition = Requisition.create(requisition_params)
-						@requisition.type_id = t.id
-						@requisition.save
+					# if params[:material].present?
+					# 	@requisition = Requisition.create(requisition_params)
+					# 	@requisition.type_id = t.id
+					# 	@requisition.save
 					
-						params[:material].each do |k, v|
-							# GROUP BY SHEET: This is part of the grouping only by sheets.
-							#if s === v[:spool]
-								@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
-							#end
-						end
-					end
+					# 	params[:material].each do |k, v|
+					# 		# GROUP BY SHEET: This is part of the grouping only by sheets.
+					# 		#if s === v[:spool]
+					# 			@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
+					# 		#end
+					# 	end
+					# end
 				#end
 
 			# If Not Spool
-			else
+			# else
 				@materials_by_type = @materials.select{|m| m.material_type === t.id}
 
 				# GROUP BY SHEET: This is part of the grouping only by sheets.
@@ -136,7 +136,7 @@ class RequisitionsController < ApplicationController
 						#end
 					end
 				#end
-			end
+			# end
 		end
 
 		#@settings = Setting.find(1)

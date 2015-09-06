@@ -1,0 +1,9 @@
+$("ul.errors").html("")
+<% if @material.errors.any? %>
+  <% @material.errors.full_messages.each do |message| %>
+    $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+  <% end %>
+<% else %>
+  $("#materiallist").html("<%= escape_javascript(render 'requisitions/materials') %>")
+  $("#spool-modal").modal("hide")
+<% end %>

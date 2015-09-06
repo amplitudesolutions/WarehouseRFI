@@ -51,7 +51,7 @@
 <% end %>
 
 <div id="spool-modal" class="modal fade add-spool" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-sm">
+	<!-- <div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Add Spool</h4>
@@ -64,9 +64,9 @@
 				<div class="form-group">
 					<label for="">Drawing</label>
 					<select id="spoolDrawing" class="form-control">
-						<% @sheets.each do |s| %>
-						<option value="<%= s.spool %>"><%= s.isometric_number %>-<%= s.sheet_no %></option>
-						<% end %>
+						<%# @sheets.each do |s| %>
+						<option value="<%#= s.spool %>"><%#= s.isometric_number %>-<%#= s.sheet_no %></option>
+						<%# end %>
 					</select>
 				</div>
 			</div>
@@ -74,7 +74,7 @@
 				<button class="btn btn-primary" id="btnAddSpool" type="button">Add</button>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 <script>

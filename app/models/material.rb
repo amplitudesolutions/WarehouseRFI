@@ -20,6 +20,10 @@ class Material < ActiveRecord::Base
 		"S" + (letters.index(spool.first) + 1).to_s.rjust(2, '0')
 	end
 
+	def drawing
+		isometric_number + '-' + sheet_no
+	end
+
 	def material_type
 		material_type_id = ''
 		rules = Rule.all
