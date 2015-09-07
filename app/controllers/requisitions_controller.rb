@@ -11,7 +11,7 @@ class RequisitionsController < ApplicationController
 	end
 
 	def show
-		@requisition = Requisition.find(params[:id])
+		@requisitions = Requisition.where(isometric_number: params[:id])
 	end
 
 	def new
@@ -68,78 +68,24 @@ class RequisitionsController < ApplicationController
 		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
 
 		@types.each do |t|
+			@materials_by_type = @materials.select{|m| m.material_type === t.id}
+			
+			# Update material with req id.
+			row = @settings.row_max
 
-			# If Spool
-			# Add Spools to Database only if type equals spool
-			# if t.id === 1 #Indicates a spool
-				#Add appropriate spool to materials
+			@materials_by_type.each do |m|			
+				if row === @settings.row_max
+					@requisition = Requisition.create(requisition_params)
+					@requisition.type_id = t.id
+					@requisition.save
+					row = 0
+				end
 
-				# GROUP BY SHEET: This is part of the grouping only by sheets.
-				# sheets = []
-				# if params[:material].present?
-				# 	params[:material].each do |k,v|
-				# 		sheets.push(v[:spool])
-				# 	end
-				# end
-
-				#Need to group items by sheet no, A01, B01, C01 then create appropriate Req's for them.
-				
-				# GROUP BY SHEET: This is part of the grouping only by sheets.
-				#sheets.uniq.each do |s|
-					# if params[:material].present?
-					# 	@requisition = Requisition.create(requisition_params)
-					# 	@requisition.type_id = t.id
-					# 	@requisition.save
-					
-					# 	params[:material].each do |k, v|
-					# 		# GROUP BY SHEET: This is part of the grouping only by sheets.
-					# 		#if s === v[:spool]
-					# 			@requisition.materials.create(isometric_number: v[:isometric_number], spool: v[:spool], quantity: 1, designation: v[:designation], type_id: 1, id_prefabrication: 'M')
-					# 		#end
-					# 	end
-					# end
-				#end
-
-			# If Not Spool
-			# else
-				@materials_by_type = @materials.select{|m| m.material_type === t.id}
-
-				# GROUP BY SHEET: This is part of the grouping only by sheets.
-				#@sheets = @materials_by_type.uniq{|s| s.spool}
-
-				#Need to group items by sheet no, A01, B01, C01 then create appropriate Req's for them.
-				# GROUP BY SHEET: This is part of the grouping only by sheets.
-				#@sheets.each do |s|
-					#@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', spool: s.spool)
-					
-					# @requisition = Requisition.create(requisition_params)
-					# @requisition.type_id = t.id
-					# @requisition.save
-					
-					# Update material with req id.
-					row = @settings.row_max
-
-					@materials_by_type.each do |m|
-					
-						if row === @settings.row_max
-							@requisition = Requisition.create(requisition_params)
-							@requisition.type_id = t.id
-							@requisition.save
-							row = 0
-						end
-
-						# GROUP BY SHEET: This is part of the grouping only by sheets.
-						#if m.spool === s.spool
-							m.requisition_id = @requisition.id
-							m.save
-							row += 1
-						#end
-					end
-				#end
-			# end
+				m.requisition_id = @requisition.id
+				m.save
+				row += 1
+			end
 		end
-
-		#@settings = Setting.find(1)
 
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
@@ -153,31 +99,64 @@ class RequisitionsController < ApplicationController
 		# 	@types = Type.where(id: params[:type_id])
 		# end
 
-		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M')
+		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', requisition_id: nil)
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
+
+		@settings = Setting.find(1)
 
 		@types.each do |t|
 
+			@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number], type_id: t.id)
+			@materials_by_type = @materials.select{|m| m.material_type === t.id}
 
+			if @requisitions.empty?
+				# If there is currently no Req. Created.	
+				@materials_by_type = @materials.select{|m| m.material_type === t.id}
 			
+				# Update material with req id.
+				row = @settings.row_max
+
+				@materials_by_type.each do |m|			
+					if row === @settings.row_max
+						@requisition = Requisition.create(requisition_params)
+						@requisition.type_id = t.id
+						@requisition.save
+						row = 0
+					end
+
+					m.requisition_id = @requisition.id
+					m.save
+					row += 1
+				end
+			else
+				# Req Exists.
+				@requisitions.each do |r|
+					r.update_attributes(requisition_params)
+
+					@materials_by_type = @materials.select{|m| m.material_type === r.type_id}
+
+					# Check if current Req. has reached max_rows, if not, add material to that req.
+					row = @materials_by_type.count
+					req_id = r.id
+
+					@materials_by_type.each do |m|			
+						if row === @settings.row_max
+							requisition = Requisition.create(requisition_params)
+							requisition.type_id = r.type_id
+							requisition.save
+							row = 0
+							req_id = requisition.id
+						end
+
+						m.requisition_id = req_id
+						m.save
+						row += 1
+					end
+				end
+			end
 		end
 
-		@requisitions.each do |r|
-			r.update_attributes(requisition_params)
-		
-			#@requisition.update_attributes(requisition_params)
-			#@requisition.type_id = t.id
-			#@requisition.save
-
-			# @materials.each do |m|	
-			# 	if m.material_type === t.id
-			# 		m.requisition_id = r.id
-			# 		m.save
-			# 	end
-			# end
-		end
-
-		@settings = Setting.find(1)
+		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
 
 	private
