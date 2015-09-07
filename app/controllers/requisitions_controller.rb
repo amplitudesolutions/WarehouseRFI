@@ -157,29 +157,27 @@ class RequisitionsController < ApplicationController
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 
 		@types.each do |t|
-			#@requisition = Requisition.find(params[:id])
-			@requisitions.each do |r|
-				r.update_attributes(requisition_params)
-			
-				#@requisition.update_attributes(requisition_params)
-				#@requisition.type_id = t.id
-				#@requisition.save
 
-				# @materials.each do |m|	
-				# 	if m.material_type === t.id
-				# 		m.requisition_id = r.id
-				# 		m.save
-				# 	end
-				# end
-			end
+
+			
 		end
 
-		## If new spool created, or item allocated to Loose Piping or Supports, need to create new req's? or add
-		## to existing req?
+		@requisitions.each do |r|
+			r.update_attributes(requisition_params)
+		
+			#@requisition.update_attributes(requisition_params)
+			#@requisition.type_id = t.id
+			#@requisition.save
+
+			# @materials.each do |m|	
+			# 	if m.material_type === t.id
+			# 		m.requisition_id = r.id
+			# 		m.save
+			# 	end
+			# end
+		end
 
 		@settings = Setting.find(1)
-
-		#@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
 	end
 
 	private
