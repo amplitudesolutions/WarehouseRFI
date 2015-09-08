@@ -87,7 +87,7 @@ class RequisitionsController < ApplicationController
 			end
 		end
 
-		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
+		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number]).order(type_id: :asc, materials_count: :desc)
 	end
 
 	def update
@@ -99,19 +99,19 @@ class RequisitionsController < ApplicationController
 		# 	@types = Type.where(id: params[:type_id])
 		# end
 
-		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', requisition_id: nil)
 		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
+		@materials = Material.where(isometric_number: params[:requisition][:isometric_number], id_prefabrication: 'M', requisition_id: nil)
 
 		@settings = Setting.find(1)
 
 		@types.each do |t|
 
-			@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number], type_id: t.id)
+			@requisition_list = Requisition.where(isometric_number: params[:requisition][:isometric_number], type_id: t.id).order(materials_count: :desc)
+
 			@materials_by_type = @materials.select{|m| m.material_type === t.id}
 
-			if @requisitions.empty?
+			if @requisition_list.empty?
 				# If there is currently no Req. Created.	
-				@materials_by_type = @materials.select{|m| m.material_type === t.id}
 			
 				# Update material with req id.
 				row = @settings.row_max
@@ -130,16 +130,14 @@ class RequisitionsController < ApplicationController
 				end
 			else
 				# Req Exists.
-				@requisitions.each do |r|
+				@requisition_list.each do |r|
 					r.update_attributes(requisition_params)
 
-					@materials_by_type = @materials.select{|m| m.material_type === r.type_id}
-
 					# Check if current Req. has reached max_rows, if not, add material to that req.
-					row = @materials_by_type.count
+					row = r.materials.count #@materials_by_type.count
 					req_id = r.id
 
-					@materials_by_type.each do |m|			
+					@materials_by_type.each do |m|
 						if row === @settings.row_max
 							requisition = Requisition.create(requisition_params)
 							requisition.type_id = r.type_id
@@ -156,7 +154,8 @@ class RequisitionsController < ApplicationController
 			end
 		end
 
-		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number])
+		# Display requisitions in order by Type, Spool = 1, Supports = 2, Loose Items = 3 also show the reqs with the most items first.
+		@requisitions = Requisition.where(isometric_number: params[:requisition][:isometric_number]).order(type_id: :asc, materials_count: :desc)
 	end
 
 	private

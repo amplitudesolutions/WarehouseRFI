@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150731035658) do
+ActiveRecord::Schema.define(version: 20150907221314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,12 +69,13 @@ ActiveRecord::Schema.define(version: 20150731035658) do
     t.string   "intended_use"
     t.string   "requested_by"
     t.string   "delivery_location"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "isometric_number"
     t.string   "requisition_id"
     t.string   "work_package_number"
     t.integer  "type_id"
+    t.integer  "materials_count",     default: 0
   end
 
   add_index "requisitions", ["type_id"], name: "index_requisitions_on_type_id", using: :btree

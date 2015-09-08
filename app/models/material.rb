@@ -1,5 +1,5 @@
 class Material < ActiveRecord::Base
-	belongs_to :requisition
+	belongs_to :requisition, counter_cache: true
 	belongs_to :type
 
 	def requisition_description
