@@ -6,13 +6,12 @@
       </div>
       <%= form_for @material, url: requisition_spools_path(@isometric_number), method: :post, remote: true do |f| %>
 			<div class="modal-body">				
-				<div class="form-group">
-					<label for="">Description</label>
+				<div class="form-group" id="material_designationDiv">
+					<label for="" class="control-label">Description</label>
 					<%= f.text_field :designation, class: 'form-control' %>
-					<!-- <input type="text" class="form-control" id="spoolDescription"> -->
 				</div>
-				<div class="form-group">
-					<label for="">Drawing</label>
+				<div class="form-group" id="material_spoolDiv">
+					<label for="" class="control-label">Drawing</label>
 					<%= f.collection_select(:spool, @sheets, :spool, :drawing, { prompt: true} , :class => "form-control") %>
 				</div>
 			</div>
@@ -23,3 +22,49 @@
 		<% end %>
     </div>
 </div>
+
+<script>
+
+ $(document).ready(function(){
+
+ 	var requiredFields = ['material_designation', 'material_spool'];
+	
+	$(".new_material").submit(function() {
+        if (validateform()) {
+          return true;
+        } else { return false; } 
+    });
+
+    function validateform() {
+      var bValid = true;      
+      jQuery.each ( requiredFields, function (i, val) {
+        if ($("#" + val).prop('type') == "text" || $("#" + val).prop('type') == "textarea") {
+          if ($("#" + val).val() == "") {
+            $("#" + val + "Div").addClass("has-error");
+            bValid = false;
+           } else { 
+            $("#" + val + "Div").removeClass("has-error");
+          };
+        } else if ($("#" + val).prop('type') == "checkbox") {
+          if ($("#" + val).prop("checked") == false) {
+            $("#" + val + "Div").addClass("has-error");
+            bValid = false;
+           } else { 
+            $("#" + val + "Div").removeClass("has-error");
+          };
+        } else if ($("#" + val).prop('type') == "select-one") {
+          if ($("#" + val).val() == "") {
+            $("#" + val + "Div").addClass("has-error");
+            bValid = false;
+           } else { 
+            $("#" + val + "Div").removeClass("has-error");
+          };
+        };
+      });
+
+      return bValid;
+    };
+
+});
+
+</script>
