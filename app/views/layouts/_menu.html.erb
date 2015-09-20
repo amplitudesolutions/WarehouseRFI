@@ -7,9 +7,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">
-        <%= image_tag Setting.find(1).logo.url(:small) %> 
-      </a>
+      <% if Setting.find(1).logo.present? %>
+        <a class="navbar-brand" href="#">
+            <%= image_tag Setting.find(1).logo.url(:small) %> 
+        </a>
+      <% end %>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
         <h4 class="navbar-text">Request for Issue Generator</h4>

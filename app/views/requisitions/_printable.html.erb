@@ -6,7 +6,9 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12">
 							<div class="col-xs-3 col-sm-3">
-								<%= image_tag Setting.find(1).logo.url(:print) %> 
+								<% if Setting.find(1).logo.present? %>
+									<%= image_tag Setting.find(1).logo.url(:print) %> 
+								<% end %>
 							</div>
 							<div class="col-xs-6 col-sm-6 text-center">
 								<h3>WAREHOUSE REQUEST FOR ISSUE</h3>
