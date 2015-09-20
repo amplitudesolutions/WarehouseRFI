@@ -13,7 +13,9 @@ gem 'rails_12factor', group: :production
 #gem 'roo', '~> 2.0.0'
 gem "creek"
 
+gem 'paperclip'
 # Gem for AWS S3 Storage
+gem 'aws-sdk-v1'
 gem 'aws-sdk', '~> 2'
 
 # Use SCSS for stylesheets

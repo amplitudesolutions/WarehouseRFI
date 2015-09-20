@@ -76,6 +76,6 @@ class SettingsController < ApplicationController
 
 	private
 		def settings_params
-			params.require(:setting).permit(:wrfi_prefix, :row_max)
+			params.require(:setting).permit(:wrfi_prefix, :row_max, :logo)
 		end
 end

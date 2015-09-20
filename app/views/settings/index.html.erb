@@ -19,7 +19,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">General</div>
 					<div class="panel-body">
-						<%= form_for @settings do |f| %>
+						<%= form_for @settings, multipart: true do |f| %>
 							<div class="form-group col-sm-3">
 								<label for="">Requisition Prefix</label>
 								<%= f.text_field :wrfi_prefix, class: "form-control" %>
@@ -27,6 +27,10 @@
 							<div class="form-group col-sm-3">
 								<label for="">Items Per Requisition</label>
 								<%= f.text_field :row_max, class: "form-control" %>
+							</div>
+							<div class="form-group col-sm-6">
+								<label for="" class="">Upload Logo</label>
+								<%= f.file_field :logo, class: "form-control" %>
 							</div>
 							<div class="col-sm-12">
 								<%= f.submit "Save Settings", class: "btn btn-primary" %>
